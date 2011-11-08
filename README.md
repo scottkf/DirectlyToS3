@@ -1,7 +1,5 @@
 # Directly To S3
 
-- Version: 0.1.0
-
 ## Requirements
 
 - Rails 3.1
