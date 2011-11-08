@@ -40,4 +40,3 @@ A full list of options that can be passed to the helpers are listed below
 ## TODO
 
 - Specs
-

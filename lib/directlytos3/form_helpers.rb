@@ -36,7 +36,7 @@ module Directlytos3
     def s3_field_tag(name, options = {})
       Directlytos3::configure(options)
       
-      form_tag("http://#{options[:bucket]}.s3.amazonaws.com/", :remote => options[:remote], :enctype=>"multipart/form-data",:method=>"post", :id => 's3-upload-form', :authenticity_token => false) do
+      form_tag("https://#{options[:bucket]}.s3.amazonaws.com/", :remote => options[:remote], :enctype=>"multipart/form-data",:method=>"post", :id => 's3-upload-form', :authenticity_token => false) do
         s3_hidden_fields(options)
         concat file_field_tag 'file'
       end
@@ -50,12 +50,12 @@ module Directlytos3
       raise ArgumentError, "s3_form_for: Missing block" unless block_given?
 
       options = args.extract_options!
-      args << {:url => "http://#{options[:bucket]}.s3.amazonaws.com/", :builder => options[:builder], :enctype => "multipart/form-data", :method => "post", :html => {:id => 's3-upload-form'}, :authenticity_token => false, :remote => options[:remote]}
+      args << {:url => "https://#{options[:bucket]}.s3.amazonaws.com/", :builder => options[:builder], :enctype => "multipart/form-data", :method => "post", :html => {:id => 's3-upload-form'}, :authenticity_token => false, :remote => options[:remote]}
       Directlytos3::configure(options)
       form_for(record, *(args)) do |f|
         s3_hidden_fields(options)
         block.call(f)
-        f.file_field "file", :name => "file"
+        # f.file_field "file", :name => "file"
       end
     end
     
@@ -63,7 +63,7 @@ module Directlytos3
  
       policy = Directlytos3::S3.policy(options)
       signature = Directlytos3::S3.signature(options)
-
+      
       concat hidden_field_tag('key', "#{options[:key]}#{'/' if !options[:key].blank?}#{Directlytos3.random_string if options[:randomize]}${filename}")
       concat hidden_field_tag('AWSAccessKeyId', "#{options[:access_key]}")
       concat hidden_field_tag('acl', "#{options[:acl]}")

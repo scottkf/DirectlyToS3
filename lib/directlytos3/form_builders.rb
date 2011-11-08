@@ -3,9 +3,12 @@ require 'action_view/helpers'
 class ActionView::Helpers::FormBuilder
   def s3_file_field(method, options = {})
     parent_form_options = @parent_builder.instance_variable_get("@options")
+    self.multipart = true
     if parent_form_options.has_key?(:html) && parent_form_options[:html].has_key?(:id) && parent_form_options[:html][:id] == 's3-upload-form'
+      # file_field(method, options.merge(:name => "file"))
       @template.file_field(@object_name, method, objectify_options(options.merge(:name=>"file")))      
     else
+      # file_field(method, options)
       @template.file_field(@object_name, method, objectify_options(options))
     end
   end
