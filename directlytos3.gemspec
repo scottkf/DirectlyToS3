@@ -8,8 +8,8 @@ Gem::Specification.new do |s|
   s.authors     = ["Scott Tesoriere"]
   s.email       = ["scott@tesoriere.com"]
   s.homepage    = ""
-  s.summary     = %q{TODO: Write a gem summary}
-  s.description = %q{TODO: Write a gem description}
+  s.summary     = %q{A rails helper to create an S3 upload form}
+  s.description = %q{A rails helper to create an S3 upload form}
 
   s.rubyforge_project = "directlytos3"
 
