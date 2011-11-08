@@ -19,7 +19,7 @@ Inserts an S3 upload field anywhere in a document
 ## Usage
 
     = s3_form_for Article.new, :id => "tester3", :bucket => 'thisismybucket', :builder => TwitterBootstrapFormFor::FormBuilder do |f|
-      = f.s3_file_field :hello
+      = f.file_field :hello
     = s3_field_tag 'name', :bucket => 'thisismybucket', :key => "test", :randomize => true, :redirect => "http://localhost", :remote => true
 
 You can use either helper, though if you do use `s3_form_for` and you add any other input fields it will fail. This was mainly implemented so you could use builders and adjust the style easily. In addition, if you use `s3_form_for` you have to add the `s3_file_field`. This was done for the reasons above as well.
