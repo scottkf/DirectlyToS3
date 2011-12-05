@@ -50,7 +50,8 @@ module Directlytos3
       raise ArgumentError, "s3_form_for: Missing block" unless block_given?
 
       options = args.extract_options!
-      args << {:url => "https://#{options[:bucket]}.s3.amazonaws.com/", :builder => options[:builder], :enctype => "multipart/form-data", :method => "post", :html => {:id => 's3-upload-form'}, :authenticity_token => false, :remote => options[:remote]}
+      url = options[:path] || "https://#{options[:bucket]}.s3.amazonaws.com/"
+      args << {:url => url, :builder => options[:builder], :enctype => "multipart/form-data", :method => "post", :html => {:id => 's3-upload-form'}, :authenticity_token => false, :remote => options[:remote]}
       Directlytos3::configure(options)
       form_for(record, *(args)) do |f|
         s3_hidden_fields(options)
