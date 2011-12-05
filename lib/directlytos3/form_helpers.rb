@@ -36,7 +36,8 @@ module Directlytos3
     def s3_field_tag(name, options = {})
       Directlytos3::configure(options)
       
-      form_tag("https://#{options[:bucket]}.s3.amazonaws.com/", :remote => options[:remote], :enctype=>"multipart/form-data",:method=>"post", :id => 's3-upload-form', :authenticity_token => false) do
+      url = options[:path] || "https://#{options[:bucket]}.s3.amazonaws.com/"   
+      form_tag(url, :remote => options[:remote], :enctype=>"multipart/form-data",:method=>"post", :id => 's3-upload-form', :authenticity_token => false) do
         s3_hidden_fields(options)
         concat file_field_tag 'file'
       end
