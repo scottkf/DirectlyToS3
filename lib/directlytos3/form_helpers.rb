@@ -71,7 +71,7 @@ module Directlytos3
       concat hidden_field_tag('AWSAccessKeyId', "#{options[:access_key]}")
       concat hidden_field_tag('acl', "#{options[:acl]}")
       concat hidden_field_tag('success_action_redirect', "#{options[:redirect]}")
-      concat hidden_field_tag('success_action_status', "#{options[:status]}")
+      # concat hidden_field_tag('success_action_status', "#{options[:status].to_s}")
       concat hidden_field_tag('policy', "#{policy}")
       concat hidden_field_tag('signature', "#{signature}")
       concat hidden_field_tag('Content-Type', "#{options[:content_type]}")
