@@ -18,11 +18,12 @@ module Directlytos3::S3
         {"bucket" =>  options[:bucket]}, 
         ["starts-with", "$key", options[:key]],
         {"acl" => options[:acl]},
-        {"success_action_redirect" => options[:redirect]},
         ["starts-with", "$Content-Type", ''],
         ["content-length-range", 0, options[:max_filesize]]
       ]
     }
+    policy["conditions"] << {"success_action_redirect" => options[:redirect]} if options[:redirect]
+    policy["conditions"] << {"success_action_status" => options[:status].to_s} if options[:status]
     Base64.encode64(policy.to_json).gsub(/\n/,'')
   end
 

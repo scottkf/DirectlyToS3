@@ -14,12 +14,12 @@ module Directlytos3
     options[:key] ||= ''
     options[:key].gsub!(/(\/)$/, '')
     options[:content_type] ||= MIME::Types.type_for("${filename}").to_s
-    options[:redirect] ||= '/'
+    options[:redirect] ||= nil
     options[:acl] ||= 'public-read'
     options[:expiration_date] ||= 10.hours.from_now.utc.xmlschema
     options[:max_filesize] ||= 1.megabyte
     options[:randomize] ||= false
-    options[:status] ||= 200
+    options[:status] ||= nil
     raise Directlytos3::Exceptions::NoBucketSpecified if !options[:bucket]
     raise Directlytos3::Exceptions::MissingAccessKey, "secret" if !options[:secret_key]
     raise Directlytos3::Exceptions::MissingAccessKey, "public" if !options[:access_key]
@@ -70,8 +70,8 @@ module Directlytos3
       concat hidden_field_tag('key', "#{options[:key]}#{'/' if !options[:key].blank?}#{Directlytos3.random_string if options[:randomize]}${filename}")
       concat hidden_field_tag('AWSAccessKeyId', "#{options[:access_key]}")
       concat hidden_field_tag('acl', "#{options[:acl]}")
-      concat hidden_field_tag('success_action_redirect', "#{options[:redirect]}")
-      # concat hidden_field_tag('success_action_status', "#{options[:status].to_s}")
+      concat hidden_field_tag('success_action_redirect', "#{options[:redirect]}") if options[:redirect]
+      concat hidden_field_tag('success_action_status', "#{options[:status].to_s}") if options[:status]
       concat hidden_field_tag('policy', "#{policy}")
       concat hidden_field_tag('signature', "#{signature}")
       concat hidden_field_tag('Content-Type', "#{options[:content_type]}")
