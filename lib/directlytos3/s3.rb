@@ -19,6 +19,7 @@ module Directlytos3::S3
         ["starts-with", "$key", options[:key]],
         {"acl" => options[:acl]},
         {"success_action_redirect" => options[:redirect]},
+        {"success_action_status" => options[:status]},
         ["starts-with", "$Content-Type", ''],
         ["content-length-range", 0, options[:max_filesize]]
       ]

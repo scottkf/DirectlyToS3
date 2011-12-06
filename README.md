@@ -35,6 +35,7 @@ A full list of options that can be passed to the helpers are listed below
 - max_filesize: The maximum file size
 - randomize: Add a leading random string to avoid collisions 
 - path: If you need to proxy the request using ajax
+- status: If you need to specify the success_action_status
 
 ## TODO
 

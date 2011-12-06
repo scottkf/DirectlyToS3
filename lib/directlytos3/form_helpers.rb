@@ -19,6 +19,7 @@ module Directlytos3
     options[:expiration_date] ||= 10.hours.from_now.utc.xmlschema
     options[:max_filesize] ||= 1.megabyte
     options[:randomize] ||= false
+    options[:status] ||= 200
     raise Directlytos3::Exceptions::NoBucketSpecified if !options[:bucket]
     raise Directlytos3::Exceptions::MissingAccessKey, "secret" if !options[:secret_key]
     raise Directlytos3::Exceptions::MissingAccessKey, "public" if !options[:access_key]
@@ -70,10 +71,11 @@ module Directlytos3
       concat hidden_field_tag('AWSAccessKeyId', "#{options[:access_key]}")
       concat hidden_field_tag('acl', "#{options[:acl]}")
       concat hidden_field_tag('success_action_redirect', "#{options[:redirect]}")
+      concat hidden_field_tag('success_action_status', "#{options[:status]}")
       concat hidden_field_tag('policy', "#{policy}")
       concat hidden_field_tag('signature', "#{signature}")
       concat hidden_field_tag('Content-Type', "#{options[:content_type]}")
-      options.except!(:key, :access_key, :acl, :redirect, :content_type, :secret_key, :randomize, :expiration_date, :max_filesize)
+      options.except!(:key, :access_key, :acl, :redirect, :content_type, :secret_key, :randomize, :expiration_date, :max_filesize, :path, :status)
     end
     
   end
