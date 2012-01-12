@@ -16,6 +16,7 @@ module Directlytos3
     options[:content_type] ||= MIME::Types.type_for("${filename}").to_s
     options[:redirect] ||= nil
     options[:acl] ||= 'public-read'
+    options[:cache_control] ||= '2592000'
     options[:expiration_date] ||= 10.hours.from_now.utc.xmlschema
     options[:max_filesize] ||= 1.megabyte
     options[:randomize] ||= false
@@ -75,6 +76,7 @@ module Directlytos3
       concat hidden_field_tag('policy', "#{policy}")
       concat hidden_field_tag('signature', "#{signature}")
       concat hidden_field_tag('Content-Type', "#{options[:content_type]}")
+      concat hidden_field_tag('Cache-Control', "public,max-age=#{options[:cache_control]}") if options[:cache_control]
       options.except!(:key, :access_key, :acl, :redirect, :content_type, :secret_key, :randomize, :expiration_date, :max_filesize, :path, :status)
     end
     

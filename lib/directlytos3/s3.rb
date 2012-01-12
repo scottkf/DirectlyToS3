@@ -19,6 +19,7 @@ module Directlytos3::S3
         ["starts-with", "$key", options[:key]],
         {"acl" => options[:acl]},
         ["starts-with", "$Content-Type", ''],
+        ["starts-with", "$Cache-Control", ""],
         ["content-length-range", 0, options[:max_filesize]]
       ]
     }
